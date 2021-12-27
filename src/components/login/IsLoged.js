@@ -1,5 +1,5 @@
 const IsLoged = () => {
-  return ( false );
+  return ( true );
 }
 
 export default IsLoged;
