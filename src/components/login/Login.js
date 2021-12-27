@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import SearchArticlesLogo from './SearchArticleLogo'
-import './Login.css'
 
 const Login = () => {
   return ( 
