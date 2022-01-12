@@ -3,11 +3,11 @@ import React from 'react';
 import Header from './Header';
 import Filtro from './Filtro';
 
-const Search = () => {
+const Search = (props) => {
   return (
     <div className='col py-3'>
       <Header title={ "ÁREA DE PESQUISA" }/>
-      <Filtro />
+      <Filtro articles={props.articles} setArticles={props.setArticles}/>
     </div>
   );
 }
