@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Filtro = (props) => {
   const [placeholder, setPlaceholder] = useState("Título da publicação")
   const [nameInput, setNameInput] = useState("titulo")
+
+  const [totPages, setTotPages] = useState(0)
+  const [totalResults, setTotalResults] = useState(0)
+  const [pagination, setPagination] = useState(20)
+
+  const header  = {
+    'Authorization': 'Bearer ' + localStorage.getItem('access')
+  }
 
   const handleSelect = (e) => {
     setPlaceholder(e.target.options[e.target.selectedIndex].text);
     setNameInput(e.target.value)
   }
 
-  const fetchArticles = async (url) => {
+  const fetchArticles = async (url, header) => {
     const {data} = await axios.get(
-      url
+      url, { headers: header }
     )
     props.setArticles(data)
+    setTotPages(Math.ceil(data.count / data.results.length))
+    setTotalResults(data.count)
+    setPagination(data.results.length)
+    toast.success('Encontrados ' + data.count + ' artigos')
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const form_ = document.getElementById("articleSearch")
 
-    fetchArticles('http://localhost:8000/api/v1/articles/?' + form_.name + '=' + form_.value)
+    fetchArticles('http://localhost:8000/api/v1/articles/?' + form_.name + '=' + form_.value, header)
   }
 
   return (
