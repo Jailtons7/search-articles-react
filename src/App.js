@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import PrivateRoute from './components/login/PrivateRoute';
 import Home from './components/Home';
@@ -14,17 +14,25 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <PrivateRoute path="/" exact component={ Home } />
-        <Route path="/articles/:id" exact component={ ArticleDetails } />
-        <Route path="/login" exact component={ Login } />
-        <Route path="/account-create" exact component={ CreateAccount } />
-        <PrivateRoute path="/edit-profile" component={ EditProfile } />
-        <Route exact path="/logout" component={ Logout } />
-        <Route component={ NotFoundError } />
-      </Switch>
-    </BrowserRouter>
+    <div className='App'>
+      <Routes>
+        <Route path="/" exact element={
+          <PrivateRoute children={ <Home />} />
+        }/>
+        <Route path="/articles/:id" exact element={ 
+          <PrivateRoute children={<ArticleDetails />} />
+        }/>
+        <Route path="/login" exact element={ <Login /> } />
+        <Route path="/account-create" exact element={ <CreateAccount /> } />
+        <Route path="/edit-profile" element={ 
+          <PrivateRoute children={<EditProfile />} />
+        }/>
+        <Route exact path="/logout" element={ 
+          <PrivateRoute children={<Logout />} />
+        }/>
+        <Route element={ <NotFoundError /> } />
+      </Routes>
+    </div>
   );
 }
 
