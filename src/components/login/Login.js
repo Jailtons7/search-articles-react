@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import UtilsServices from '../../utils/UtilsServices';
 
 const Login = () => {
   const location = useLocation()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (location.state) {
@@ -25,7 +25,7 @@ const Login = () => {
     axios.post(url, data).then((response) => {
       localStorage.setItem('access', response.data.access)
       localStorage.setItem('refresh', response.data.refresh)
-      history.push('/')
+      navigate('/')
     }).catch((error) => {
       toast.error(error.response.data.detail)
     })

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 
 const Logout = () => {
   localStorage.clear()
-  return (<Redirect to={'/login'} />)
+  return (<Navigate to={'/login'} />)
 }
- 
+
 export default Logout;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchArticlesLogo from './SearchArticleLogo';
@@ -9,17 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const CreateAccount = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const postUser = async (url, data) => {
     await axios.post(
       url, data
     ).then((response) => {
       if (response.status === 201) {
-        history.push({
-          pathname: '/login',
-          state: response.data
-        })
+        navigate('/login', {state: response.data})
       } else {
         failToast(response.data)
       }

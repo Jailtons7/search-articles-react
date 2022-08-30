@@ -6,7 +6,7 @@ import 'bootstrap/js/dist/modal'
 import { Modal } from 'bootstrap';
 
 import UtilsServices from '../../utils/UtilsServices';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileFormEdit = () => {
   const [firstName, setFirstName] = useState("")
@@ -15,7 +15,7 @@ const ProfileFormEdit = () => {
   const [cpf, setCpf] = useState("")
   const [phone, setPhone] = useState("")
 
-  const history = useHistory()
+  const navigate = useNavigate()
   useEffect(() => {
     const header  = {
       'Authorization': 'Bearer ' + localStorage.getItem('access')
@@ -77,7 +77,7 @@ const ProfileFormEdit = () => {
     
     let modal = Modal.getInstance(document.getElementById('deleteAccountModal'))
     modal.hide()
-    history.push('/login')
+    navigate('/login')
   }
 
   return ( 
